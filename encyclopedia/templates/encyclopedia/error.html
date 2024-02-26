@@ -1,0 +1,14 @@
+{% extends "encyclopedia/layout.html" %}
+{% block title %}
+    Error Not Found
+{% endblock %}
+{% block body %}
+    <h1 
+        class="alert alert-info error" role="alert">
+        OOPs! The requested page
+        <span class="txtError">
+            "{{name}}"
+        </span> 
+        does not exist.
+    </h1>
+{% endblock%}
