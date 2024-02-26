@@ -9,7 +9,9 @@
 
     <ul class="list-group list-group-flush">
         {% for entry in entries %}
-            <li class="list-group-item list-group-item-action list">{{ entry }}</li>
+            <li class="list-group-item list-group-item-action list">
+                <a href="{% url 'entry' entry%}"> {{ entry }}</a>
+            </li>
         {% endfor %}
     </ul>
 
