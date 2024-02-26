@@ -1,0 +1,16 @@
+{% extends 'encyclopedia/layout.html'%}
+{% block title %}
+    Search
+{% endblock %}
+{% block body %}
+    <h1>Similiar search results for "{{name}}"</h1>
+
+    <ul class="list-group list-group-flush list-group-numbered">
+        {% for entry in entries %}
+            <li class="list-group-item list-group-item-action list">
+                <a href="{% url 'entry' entry%}"> {{ entry }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
