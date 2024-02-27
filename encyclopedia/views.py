@@ -1,5 +1,7 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django import forms
+from django.urls import reverse
+from django.http import HttpResponseRedirect
 from . import util
 
 
@@ -36,3 +38,36 @@ def search(request):
             "entries": sublist,
             "name": name
         })
+class newPageForm(forms.Form):
+    title = forms.CharField(
+        label="Title:",
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter title of the page'}),
+        required=True
+        )
+    textArea = forms.CharField(
+        label="Markdown:",
+        widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Write Markdown here...'})
+    )
+def newPage(request):
+    if request.method == "POST":
+        form = newPageForm(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data["title"]
+            entry = util.get_entry(title)
+            content = form.cleaned_data["textArea"]
+            if (entry):
+                return render(request, "encyclopedia/already.html", {
+                    "name" : title
+                })
+            else:
+                util.save_entry(title, content)
+                return HttpResponseRedirect(reverse("index"))
+        else:
+            return render(request, "encyclopedia/newPage.html", {
+                "form": form
+            })
+    return render(request, "encyclopedia/newPage.html", {
+        "form": newPageForm(),
+        "title": "New Page"
+    })
+ 

@@ -50,3 +50,11 @@ textarea {
     cursor: pointer;
     background-color: #abd0e8;
 }
+.btn{
+    margin-top: 20px;
+    padding: 8px 36px;
+}
+.search.form-control:focus{
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
