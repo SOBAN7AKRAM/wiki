@@ -3,8 +3,10 @@
 {% block title %}
     {{title}}
 {% endblock %}
+
 {% block body %}
-    <span>
-        {{entries|markdown}}
-    </span>
+<span>
+    {{entries|markdown}}
+</span>
+<a href="{% url 'editPage' name=title %}" class="btn btn-secondary">Edit Page</a>
 {% endblock %}

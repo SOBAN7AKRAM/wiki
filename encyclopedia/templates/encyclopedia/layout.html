@@ -15,14 +15,14 @@
                 <form action="{% url 'search' %}" method="get">
                     <input class="search form-control" type="text" name="q" placeholder="Search Encyclopedia">
                 </form>
-                <div>
+                <div class="div">
                     <a href="{% url 'index' %}">Home</a>
                 </div>
-                <div>
+                <div class="div">
                     <a href="{% url 'newPage' %}">Create New Page</a>
                 </div>
-                <div>
-                    Random Page
+                <div class="div">
+                    <a href="{% url 'randomePage' %}">Random Page</a>
                 </div>
                 {% block nav %}
                 {% endblock %}

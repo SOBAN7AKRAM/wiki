@@ -29,6 +29,7 @@ textarea {
     width: 100%;
     font-size: 15px;
     line-height: 15px;
+    margin-bottom: 6px;
 }
 
 .sidebar {
@@ -57,4 +58,7 @@ textarea {
 .search.form-control:focus{
     -webkit-box-shadow: none;
     box-shadow: none;
+}
+.div{
+    padding: 3px 10px;
 }

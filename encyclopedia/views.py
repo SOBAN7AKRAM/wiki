@@ -3,6 +3,8 @@ from django import forms
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 from . import util
+import random
+from django.shortcuts import redirect
 
 
 def index(request):
@@ -14,7 +16,7 @@ def displayEntry(request, name):
     if (entry):
         return render(request, "encyclopedia/entry.html", {
             "entries": entry,
-            "title": name.upper()
+            "title": name
         })
     else:
         return render(request, "encyclopedia/error.html",{
@@ -70,4 +72,29 @@ def newPage(request):
         "form": newPageForm(),
         "title": "New Page"
     })
- 
+class editPageForm(forms.Form):
+    textArea = forms.CharField(
+        label="Markdown:",
+        widget=forms.Textarea(attrs={'class': 'form-control'})
+    )
+def editPage(request, name):
+    if request.method == "POST":
+        form = editPageForm(request.POST)
+        if (form.is_valid()):
+            content = form.cleaned_data["textArea"].strip()
+            util.save_entry(name, content)
+            return HttpResponseRedirect(reverse("entry", kwargs={'name': name}))
+    
+    else:
+        entry = util.get_entry(name)
+        entry = entry.strip()
+        form = editPageForm(initial={'textArea': entry})
+        return render(request, "encyclopedia/edit.html", {
+            "title": name,
+            "form": form,
+        })
+def getRandom(request):
+    entries = util.list_entries()
+    randomEntry = random.choice(entries)
+    return redirect('entry', name = randomEntry)
+    
